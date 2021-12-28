@@ -1,0 +1,37 @@
+<svg id="funnel" attr.width="{{MAX_WIDTH}}" attr.height="{{BLOCK_HEIGHT * (totalLength || 1)}}">
+  <g *ngFor="let block of data; let i = index" attr.class="{{'block-'+(i+1)}}">
+
+    <path id="block-container" class="trapezoid" *ngIf="i != totalLength - 1"
+      attr.d="{{'M'+(WIDTH_DECREMENT * i)+','+(BLOCK_HEIGHT*i)+' L'+(MAX_WIDTH - (WIDTH_DECREMENT * i))+','+(BLOCK_HEIGHT*i)+' L'+(MAX_WIDTH - WIDTH_DECREMENT*(i+1))+','+(BLOCK_HEIGHT*i + BLOCK_HEIGHT)+'L'+(WIDTH_DECREMENT * (i+1))+','+(BLOCK_HEIGHT*i + BLOCK_HEIGHT)+'z'}}"
+      fill="#1C3D54"></path>
+    <path id="block-container" class="rectangle" *ngIf="i == totalLength - 1"
+      attr.d="{{'M'+(WIDTH_DECREMENT * i)+','+(BLOCK_HEIGHT*i)+' L'+(MAX_WIDTH - (WIDTH_DECREMENT * i))+','+(BLOCK_HEIGHT*i)+' L'+(MAX_WIDTH - WIDTH_DECREMENT*i)+','+(BLOCK_HEIGHT*i + BLOCK_HEIGHT)+'L'+(WIDTH_DECREMENT * i)+','+(BLOCK_HEIGHT*i + BLOCK_HEIGHT)+'z'}}"
+      fill="#AFD3EC"></path>
+
+    <ng-container *ngIf="i != 0">
+      <path id="top-trail" class="trail"
+        attr.d="{{'M'+(MAX_WIDTH/2)+','+(BLOCK_HEIGHT*i+0)+' L'+(MAX_WIDTH/2)+','+(BLOCK_HEIGHT*i+30)}}" stroke="white">
+      </path>
+      <circle id="top-trail" class="dot" fill="white" attr.cx="{{(MAX_WIDTH/2)}}" attr.cy="{{(BLOCK_HEIGHT*i)}}" r="3">
+      </circle>
+    </ng-container>
+
+    <text id="block-label" attr.x="{{(MAX_WIDTH/2)}}" attr.y="{{(BLOCK_HEIGHT*i+55)}}" fill="#fff" font-size="14px"
+      text-anchor="middle" dominant-baseline="middle" pointer-events="none">
+      <tspan attr.x="{{(MAX_WIDTH/2)}}" dy="-10">{{block.label}}</tspan>
+    </text>
+
+    <circle id="block-percent" fill="white" attr.cx="{{(MAX_WIDTH/2)}}" attr.cy="{{(BLOCK_HEIGHT*i+75)}}" r="17">
+    </circle>
+    <text id="block-percent" attr.x="{{(MAX_WIDTH/2)}}" attr.y="{{(BLOCK_HEIGHT*i+75)}}" font-size="12px"
+      text-anchor="middle" dominant-baseline="middle" pointer-events="none">{{block.percentage}}%</text>
+
+    <ng-container *ngIf="i != totalLength - 1">
+      <path id="bottom-trail" class="trail"
+        attr.d="{{'M'+(MAX_WIDTH/2)+','+(BLOCK_HEIGHT*i+90)+' L'+(MAX_WIDTH/2)+','+(BLOCK_HEIGHT*i+BLOCK_HEIGHT)}}"
+        stroke="white"></path>
+      <circle id="bottom-trail" class="dot" fill="white" attr.cx="{{(MAX_WIDTH/2)}}"
+        attr.cy="{{(BLOCK_HEIGHT*i+BLOCK_HEIGHT)}}" r="3"></circle>
+    </ng-container>
+  </g>
+</svg>
